@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LJ Plays V2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="app.js" defer></script>
+</head>
+<body class="font-sans overflow-hidden">
+
+  <!-- Splash Screen -->
+  <div id="splash" class="fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-700">
+    <img src="assets/logo.png" class="w-32 animate-pulse" alt="Logo" />
+  </div>
+
+  <!-- Layout -->
+  <div class="flex md:flex-row flex-col h-screen">
+    <!-- Sidebar (Desktop) -->
+    <aside class="hidden md:flex w-60 bg-gray-800 p-4 flex-col gap-6 items-start">
+      <img src="logo.png" alt="Logo" class="w-16 animate-pulse" />
+      <nav class="flex flex-col gap-4 text-sm font-semibold">
+        <button onclick="showPage('home')" class="hover:text-green-400">🏠 Home</button>
+        <button onclick="showPage('search')" class="hover:text-green-400">🔍 Search</button>
+        <button onclick="showPage('library')" class="hover:text-green-400">📚 Library</button>
+      </nav>
+    </aside>
+
+    <!-- Bottom Nav (Mobile) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white flex justify-around items-center py-2 md:hidden z-50">
+      <button onclick="showPage('home')" class="hover:text-green-400 text-xl">🏠</button>
+      <button onclick="showPage('search')" class="hover:text-green-400 text-xl">🔍</button>
+      <button onclick="showPage('library')" class="hover:text-green-400 text-xl">📚</button>
+    </nav>
+
+    <!-- Pages -->
+    <main class="flex-1 overflow-y-auto px-4 pt-6 pb-24 md:p-6 space-y-8">
+      <section id="homePage" class="grid grid-cols-2 md:grid-cols-4 gap-4"></section>
+
+      <section id="searchPage" class="hidden">
+        <input id="searchInput" type="text" placeholder="Search songs..." class="w-full p-2 rounded bg-gray-700 text-white mb-4" />
+        <div id="searchResults" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </section>
+
+      <section id="libraryPage" class="hidden">
+        <div class="mb-4">
+          <input id="newPlaylistInput" type="text" placeholder="Create new playlist" class="w-full p-2 bg-gray-700 rounded mb-2" />
+          <button onclick="createPlaylist()" class="bg-green-500 px-4 py-2 rounded text-white w-full">➕ Create Playlist</button>
+        </div>
+
+        <h2 class="text-xl mb-4 font-bold">❤️ Liked Songs</h2>
+        <div id="likedSongs" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+
+        <h2 class="text-xl mt-8 mb-4 font-bold">🎼 Playlists</h2>
+        <div id="playlistList" class="space-y-4"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer Player -->
+  <div class="fixed bottom-12 md:bottom-0 left-0 right-0 bg-gray-800 text-white flex flex-wrap md:flex-nowrap items-center justify-between px-4 py-2 z-40">
+    <div class="flex items-center gap-3">
+      <img id="playerCover" src="" class="w-10 h-10 md:w-12 md:h-12 rounded shadow" alt="cover" />
+      <div>
+        <div id="playerTitle" class="font-bold text-sm">No song</div>
+        <div id="playerArtist" class="text-xs text-gray-300">—</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-lg">
+      <button onclick="prevSong()">⏮️</button>
+      <button onclick="togglePlay()">⏯️</button>
+      <button onclick="nextSong()">⏭️</button>
+      <button onclick="toggleRepeat()">🔁</button>
+    </div>
+    <input type="range" id="seekBar" value="0" class="w-24 md:w-32 h-1 accent-green-400" />
+    <input type="range" id="volumeSlider" value="100" class="w-16 md:w-24 h-1 accent-green-400" onchange="setVolume(this.value)" />
+  </div>
+
+  <!-- Playlist Modal -->
+  <div id="playlistModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+    <div class="bg-gray-800 p-6 rounded-lg w-96 space-y-4">
+      <h3 class="text-lg font-bold">Add to Playlist</h3>
+      <div id="playlistOptions" class="space-y-2"></div>
+      <button onclick="closePlaylistModal()" class="text-gray-400 mt-2 hover:text-red-400 w-full">Cancel</button>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+</body>
+</html>
