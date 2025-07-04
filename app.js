@@ -16,6 +16,27 @@ const songImages = [
   "image13.jpg", "image14.jpg", "image15.jpg", "image16.jpg", "image17.jpg", "image18.jpg"
 ];
 
+const artistNames = [
+  "Salim–Sulaiman",         // Victory Anthem
+  "Karan Aujla",            // Jatt Mehkma
+  "Inder Chahal",           // Millionaire
+  "Dino James",             // Amkhon Se Batana
+  "Akhil",                  // Khwaab
+  "Pritam, Shreya Ghoshal, Arijit Singh", // Ye Ishq Hai
+  "Meet Bros, Arijit Singh",// Girl I Need You
+  "Ninja",                  // Relation
+  "Jass Manak",             // Lehenga
+  "Pritam, Amit Mishra",    // Bulleya
+  "Shreya Ghoshal, Shaan",  // Prem Ki Naiya Hai
+  "Sunidhi Chauhan, Benny Dayal", // Punjabi Wedding
+  "Shankar-Ehsaan-Loy, Shafqat Amanat Ali", // Mitwa
+  "Falguni Pathak",         // Yaad Piya Ki Aane Lagi
+  "Zara Khan, Dev Negi",    // Teri Aankhon Mein
+  "Raftaar",                // Jhol
+  "Amit Mishra, Aditi Singh Sharma", // Aashiq Tera
+  "Shankar Mahadevan, Javed Bashir" // O Rangrez
+];
+
 const songs = songFiles.map((src, i) => ({
   name: songTitles[i],
   artist: "Unknown",
