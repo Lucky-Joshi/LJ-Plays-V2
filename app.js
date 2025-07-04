@@ -19,7 +19,8 @@ const songFiles = [
   "song18.mp3",
   "song19.mp3", 
   "song20.mp3", 
-  "song21.mp3"
+  "song21.mp3",
+  "song22.mp3"
 ];
 
 const songTitles = [
@@ -42,14 +43,33 @@ const songTitles = [
   "O Rangrez",
   "Tum Mile", 
   "Gandi Baat", 
-  "Teri Ore"
+  "Teri Ore",
+  "Mat Maari"
 ];
 
 const songImages = [
-  "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg",
-  "image7.jpg", "image8.jpg", "image9.jpg", "image10.jpg", "image11.jpg", "image12.jpg",
-  "image13.jpg", "image14.jpg", "image15.jpg", "image16.jpg", "image17.jpg", "image18.jpg", 
-  "image19.jpg", "image20.jpg", "image21.jpg"
+  "image1.jpg", 
+  "image2.jpg", 
+  "image3.jpg", 
+  "image4.jpg", 
+  "image5.jpg", 
+  "image6.jpg",
+  "image7.jpg", 
+  "image8.jpg", 
+  "image9.jpg", 
+  "image10.jpg", 
+  "image11.jpg", 
+  "image12.jpg",
+  "image13.jpg", 
+  "image14.jpg", 
+  "image15.jpg", 
+  "image16.jpg", 
+  "image17.jpg", 
+  "image18.jpg", 
+  "image19.jpg", 
+  "image20.jpg", 
+  "image21.jpg",
+  "image22.jpg"
 ];
 
 const artistNames = [
