@@ -20,24 +20,25 @@ const songImages = [
 ];
 
 const artistNames = [
-  "Salim–Sulaiman",         // Victory Anthem
-  "Karan Aujla",            // Jatt Mehkma
-  "Inder Chahal",           // Millionaire
-  "Dino James",             // Amkhon Se Batana
-  "Akhil",                  // Khwaab
+  "Salim–Sulaiman",                   // Victory Anthem
+  "Karan Aujla",                      // Jatt Mehkma
+  "Inder Chahal",                     // Millionaire
+  "Dino James",                       // Amkhon se batana
+  "Akhil",                            // Khwaab
   "Pritam, Shreya Ghoshal, Arijit Singh", // Ye Ishq Hai
-  "Meet Bros, Arijit Singh",// Girl I Need You
-  "Ninja",                  // Relation
-  "Jass Manak",             // Lehenga
-  "Pritam, Amit Mishra",    // Bulleya
-  "Shreya Ghoshal, Shaan",  // Prem Ki Naiya Hai
-  "Sunidhi Chauhan, Benny Dayal", // Punjabi Wedding
+  "Meet Bros, Arijit Singh",          // Girl I Need You
+  "Ninja",                            // Relation
+  "Jass Manak",                       // Lehenga
+  "Pritam, Amit Mishra",              // Bulleya
+  "Shreya Ghoshal, Shaan",            // Prem Ki Naiya Hai
+  "Sunidhi Chauhan, Benny Dayal",     // Punjabi Wedding
   "Shankar-Ehsaan-Loy, Shafqat Amanat Ali", // Mitwa
-  "Falguni Pathak",         // Yaad Piya Ki Aane Lagi
-  "Zara Khan, Dev Negi",    // Teri Aankhon Mein
-  "Raftaar",                // Jhol
-  "Amit Mishra, Aditi Singh Sharma", // Aashiq Tera
-  "Shankar Mahadevan, Javed Bashir" // O Rangrez
+  "Falguni Pathak",                   // Yaad Piya Ki
+  "Zara Khan, Dev Negi",              // Teri Aankhon Mein
+  "Raftaar",                          // jhol
+  "Amit Mishra, Aditi Singh Sharma",  // Aashiq Tera
+  "Shankar Mahadevan, Javed Bashir",  // O Rangrez
+  "Neeraj Shridhar"                   // Tum Mile
 ];
 
 const songs = songFiles.map((src, i) => ({
