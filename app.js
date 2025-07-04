@@ -39,7 +39,7 @@ const artistNames = [
 
 const songs = songFiles.map((src, i) => ({
   name: songTitles[i],
-  artist: "Unknown",
+  artist: artistNames[i],
   cover: `assets/${songImages[i]}`,
   src: `assets/${src}`
 }));
