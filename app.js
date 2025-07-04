@@ -94,6 +94,7 @@ const artistNames = [
   "Neeraj Shridhar",                   // Tum Mile
   "Vishal Dadlani, Shreya Ghoshal",    // Gandi Baat
   "Arijit Singh, Shreya Ghoshal",      // Teri Ore  
+  "Amit Trivedi, Shreya Ghoshal"       // Mat Maari
 ];
 
 const songs = songFiles.map((src, i) => ({
