@@ -20,7 +20,11 @@ const songFiles = [
   "song19.mp3", 
   "song20.mp3", 
   "song21.mp3",
-  "song22.mp3"
+  "song22.mp3",
+  "song23.mp3",
+  "song24.mp3",
+  "song25.mp3", 
+  "song26.mp3",
 ];
 
 const songTitles = [
@@ -44,7 +48,12 @@ const songTitles = [
   "Tum Mile", 
   "Gandi Baat", 
   "Teri Ore",
-  "Mat Maari"
+  "Mat Maari",
+  "Tu Hi Mera",
+  "One Love",
+  "Rang Sharbaton ka",
+  "Ye Tune Kya Kiya"
+
 ];
 
 const songImages = [
@@ -69,7 +78,11 @@ const songImages = [
   "image19.jpg", 
   "image20.jpg", 
   "image21.jpg",
-  "image22.jpg"
+  "image22.jpg",
+  "image23.jpg",
+  "image24.jpg",
+  "image25.jpg", 
+  "image26.jpg"
 ];
 
 const artistNames = [
@@ -91,10 +104,14 @@ const artistNames = [
   "Raftaar",                          // jhol
   "Amit Mishra, Aditi Singh Sharma",  // Aashiq Tera
   "Shankar Mahadevan, Javed Bashir",  // O Rangrez
-  "Neeraj Shridhar",                   // Tum Mile
-  "Vishal Dadlani, Shreya Ghoshal",    // Gandi Baat
-  "Arijit Singh, Shreya Ghoshal",      // Teri Ore  
-  "Amit Trivedi, Shreya Ghoshal"       // Mat Maari
+  "Neeraj Shridhar",                  // Tum Mile
+  "Vishal Dadlani, Shreya Ghoshal",   // Gandi Baat
+  "Arijit Singh, Shreya Ghoshal",     // Teri Ore  
+  "Amit Trivedi, Shreya Ghoshal",     // Mat Maari
+  "Pritam",                           // Tu hi mera
+  "Shubh",                            // One Love
+  "Shreya Ghoshal, Arijit Singh",     // Rang Sharbaton ka
+  "Kailash Kher",                     // Ye Tune Kya Kiya
 ];
 
 const songs = songFiles.map((src, i) => ({
