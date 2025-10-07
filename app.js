@@ -28,7 +28,8 @@ const songFiles = [
   "song27.mp3",
   "song28.mp3",
   "song29.mp3",
-  "song30.mp3"
+  "song30.mp3",
+  "song31.mp3"
 ];
 
 const songTitles = [
@@ -60,7 +61,8 @@ const songTitles = [
   "Tera Deedar Hua",
   "Ye Tune Kya Kiya - Love Version",
   "Te Amo",
-  "Tu jaane na"
+  "Tu jaane na",
+  "Pal Pal"
 
 ];
 
@@ -94,7 +96,8 @@ const songImages = [
   "image27.jpg",
   "image28.jpg",
   "image29.jpg",
-  "image30.jpg"
+  "image30.jpg",
+  "image31.jpg"
 ];
 
 const artistNames = [
@@ -126,7 +129,9 @@ const artistNames = [
   "Kailash Kher",                     // Ye Tune Kya Kiya
   "Rahat Fateh Ali Khan",             // Tera Deedar Hua
   "Ye Tune Kya Kiya - Love Version",   // Ye Tune Kya Kiya - Love Version
-  "Ash King"                           // Te Amo
+  "Ash King",                           // Te Amo
+  "Arijit Singh",                     // Tu jaane na
+  "Ali Somro",                       // Pal Pal
 ];
 
 const songs = songFiles.map((src, i) => ({
