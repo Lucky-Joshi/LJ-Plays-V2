@@ -27,7 +27,8 @@ const songFiles = [
   "song26.mp3",
   "song27.mp3",
   "song28.mp3",
-  "song29.mp3"
+  "song29.mp3",
+  "song30.mp3"
 ];
 
 const songTitles = [
@@ -58,7 +59,8 @@ const songTitles = [
   "Ye Tune Kya Kiya",
   "Tera Deedar Hua",
   "Ye Tune Kya Kiya - Love Version",
-  "Te Amo"
+  "Te Amo",
+  "Tu jaane na"
 
 ];
 
@@ -91,7 +93,8 @@ const songImages = [
   "image26.jpg",
   "image27.jpg",
   "image28.jpg",
-  "image29.jpg"
+  "image29.jpg",
+  "image30.jpg"
 ];
 
 const artistNames = [
