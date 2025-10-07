@@ -26,7 +26,8 @@ const songFiles = [
   "song25.mp3",
   "song26.mp3",
   "song27.mp3",
-  "song28.mp3"
+  "song28.mp3",
+  "song29.mp3"
 ];
 
 const songTitles = [
@@ -56,7 +57,8 @@ const songTitles = [
   "Rang Sharbaton ka",
   "Ye Tune Kya Kiya",
   "Tera Deedar Hua",
-  "Ye Tune Kya Kiya - Love Version"
+  "Ye Tune Kya Kiya - Love Version",
+  "Te Amo"
 
 ];
 
@@ -88,7 +90,8 @@ const songImages = [
   "image25.jpg",
   "image26.jpg",
   "image27.jpg",
-  "image28.jpg"
+  "image28.jpg",
+  "image29.jpg"
 ];
 
 const artistNames = [
@@ -119,7 +122,8 @@ const artistNames = [
   "Shreya Ghoshal, Arijit Singh",     // Rang Sharbaton ka
   "Kailash Kher",                     // Ye Tune Kya Kiya
   "Rahat Fateh Ali Khan",             // Tera Deedar Hua
-  "Ye Tune Kya Kiya - Love Version"   // Ye Tune Kya Kiya - Love Version
+  "Ye Tune Kya Kiya - Love Version",   // Ye Tune Kya Kiya - Love Version
+  "Ash King"                           // Te Amo
 ];
 
 const songs = songFiles.map((src, i) => ({
