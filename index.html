@@ -1,90 +1,651 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-gray-900 text-white">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LJ Plays V2</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="app.js" defer></script>
-</head>
-<body class="font-sans overflow-hidden">
-
-  <!-- Splash Screen -->
-  <div id="splash" class="fixed inset-0 bg-black z-50 flex items-center justify-center transition-opacity duration-700">
-    <img src="assets/logo.png" class="w-32 animate-pulse" alt="Logo" />
-  </div>
-
-  <!-- Layout -->
-  <div class="flex md:flex-row flex-col h-screen">
-    <!-- Sidebar (Desktop) -->
-    <aside class="hidden md:flex w-60 bg-gray-800 p-4 flex-col gap-6 items-start">
-      <img src="assets/logo.png" alt="Logo" class="w-16 animate-pulse" />
-      <nav class="flex flex-col gap-4 text-sm font-semibold">
-        <button onclick="showPage('home')" class="hover:text-green-400">🏠 Home</button>
-        <button onclick="showPage('search')" class="hover:text-green-400">🔍 Search</button>
-        <button onclick="showPage('library')" class="hover:text-green-400">📚 Library</button>
-      </nav>
-    </aside>
-
-    <!-- Bottom Nav (Mobile) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white flex justify-around items-center py-2 md:hidden z-50">
-      <button onclick="showPage('home')" class="hover:text-green-400 text-xl">🏠</button>
-      <button onclick="showPage('search')" class="hover:text-green-400 text-xl">🔍</button>
-      <button onclick="showPage('library')" class="hover:text-green-400 text-xl">📚</button>
-    </nav>
-
-    <!-- Pages -->
-    <main class="flex-1 overflow-y-auto px-4 pt-6 pb-24 md:p-6 space-y-8">
-      <section id="homePage" class="grid grid-cols-2 md:grid-cols-4 gap-4"></section>
-
-      <section id="searchPage" class="hidden">
-        <input id="searchInput" type="text" placeholder="Search songs..." class="w-full p-2 rounded bg-gray-700 text-white mb-4" />
-        <div id="searchResults" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-      </section>
-
-      <section id="libraryPage" class="hidden">
-        <div class="mb-4">
-          <input id="newPlaylistInput" type="text" placeholder="Create new playlist" class="w-full p-2 bg-gray-700 rounded mb-2" />
-          <button onclick="createPlaylist()" class="bg-green-500 px-4 py-2 rounded text-white w-full">➕ Create Playlist</button>
+<html lang="en" class="bg-black text-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LJ Plays V2 - Your Music, Your Way</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              spotify: {
+                green: "#1DB954",
+                dark: "#121212",
+                gray: "#181818",
+                light: "#282828",
+              },
+            },
+            animation: {
+              "fade-in": "fadeIn 0.5s ease-in-out",
+              "slide-up": "slideUp 0.3s ease-out",
+              "pulse-slow": "pulse 3s infinite",
+              "bounce-gentle": "bounceGentle 2s infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0", transform: "translateY(10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(100%)" },
+                "100%": { transform: "translateY(0)" },
+              },
+              bounceGentle: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-5px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <script src="app.js" defer></script>
+  </head>
+  <body class="font-sans overflow-hidden bg-spotify-dark">
+    <!-- Enhanced Splash Screen -->
+    <div
+      id="splash"
+      class="fixed inset-0 bg-gradient-to-br from-spotify-green to-green-600 z-50 flex flex-col items-center justify-center transition-all duration-1000"
+    >
+      <div class="text-center">
+        <img
+          src="assets/logo.png"
+          class="w-32 mb-6 animate-bounce-gentle"
+          alt="Logo"
+        />
+        <h1 class="text-4xl font-bold mb-2 animate-fade-in">LJ Plays V2</h1>
+        <p class="text-lg opacity-80 animate-fade-in">Your Music, Your Way</p>
+        <div class="mt-8 flex space-x-2">
+          <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+          <div
+            class="w-3 h-3 bg-white rounded-full animate-pulse"
+            style="animation-delay: 0.2s"
+          ></div>
+          <div
+            class="w-3 h-3 bg-white rounded-full animate-pulse"
+            style="animation-delay: 0.4s"
+          ></div>
         </div>
-
-        <h2 class="text-xl mb-4 font-bold">❤️ Liked Songs</h2>
-        <div id="likedSongs" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-
-        <h2 class="text-xl mt-8 mb-4 font-bold">🎼 Playlists</h2>
-        <div id="playlistList" class="space-y-4"></div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Footer Player -->
-  <div class="fixed bottom-12 md:bottom-0 left-0 right-0 bg-gray-800 text-white flex flex-wrap md:flex-nowrap items-center justify-between px-4 py-2 z-40">
-    <div class="flex items-center gap-3">
-      <img id="playerCover" src="" class="w-10 h-10 md:w-12 md:h-12 rounded shadow" alt="cover" />
-      <div>
-        <div id="playerTitle" class="font-bold text-sm">No song</div>
-        <div id="playerArtist" class="text-xs text-gray-300">—</div>
       </div>
     </div>
-    <div class="flex items-center gap-2 text-lg">
-      <button onclick="prevSong()">⏮️</button>
-      <button onclick="togglePlay()">⏯️</button>
-      <button onclick="nextSong()">⏭️</button>
-      <button onclick="toggleRepeat()">🔁</button>
-    </div>
-    <input type="range" id="seekBar" value="0" class="w-24 md:w-32 h-1 accent-green-400" />
-    <input type="range" id="volumeSlider" value="100" class="w-16 md:w-24 h-1 accent-green-400" onchange="setVolume(this.value)" />
-  </div>
 
-  <!-- Playlist Modal -->
-  <div id="playlistModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-    <div class="bg-gray-800 p-6 rounded-lg w-96 space-y-4">
-      <h3 class="text-lg font-bold">Add to Playlist</h3>
-      <div id="playlistOptions" class="space-y-2"></div>
-      <button onclick="closePlaylistModal()" class="text-gray-400 mt-2 hover:text-red-400 w-full">Cancel</button>
-    </div>
-  </div>
+    <!-- Layout -->
+    <div class="flex md:flex-row flex-col h-screen bg-spotify-dark">
+      <!-- Enhanced Sidebar (Desktop) -->
+      <aside
+        class="hidden md:flex w-64 bg-spotify-gray p-6 flex-col gap-8 border-r border-spotify-light"
+      >
+        <div class="flex items-center gap-3">
+          <img src="assets/logo.png" alt="Logo" class="w-10 h-10" />
+          <h1 class="text-xl font-bold text-spotify-green">LJ Plays</h1>
+        </div>
 
-  <audio id="audio"></audio>
-</body>
+        <nav class="flex flex-col gap-2">
+          <button
+            onclick="showPage('home')"
+            id="homeBtn"
+            class="nav-btn flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left"
+          >
+            <i class="fas fa-home text-lg"></i>
+            <span class="font-medium">Home</span>
+          </button>
+          <button
+            onclick="showPage('search')"
+            id="searchBtn"
+            class="nav-btn flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left"
+          >
+            <i class="fas fa-search text-lg"></i>
+            <span class="font-medium">Search</span>
+          </button>
+          <button
+            onclick="showPage('library')"
+            id="libraryBtn"
+            class="nav-btn flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left"
+          >
+            <i class="fas fa-book text-lg"></i>
+            <span class="font-medium">Your Library</span>
+          </button>
+        </nav>
+
+        <div class="mt-4 pt-4 border-t border-spotify-light">
+          <button
+            onclick="createPlaylist()"
+            class="flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left w-full"
+          >
+            <i class="fas fa-plus text-lg"></i>
+            <span class="font-medium">Create Playlist</span>
+          </button>
+          <button
+            onclick="showLikedSongs()"
+            class="flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left w-full"
+          >
+            <i class="fas fa-heart text-lg text-spotify-green"></i>
+            <span class="font-medium">Liked Songs</span>
+          </button>
+        </div>
+
+        <!-- Settings -->
+        <div class="mt-4 pt-4 border-t border-spotify-light">
+          <button
+            onclick="toggleSettings()"
+            class="flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left w-full"
+          >
+            <i class="fas fa-cog text-lg"></i>
+            <span class="font-medium">Settings</span>
+          </button>
+        </div>
+
+        <!-- Recently Played -->
+        <div class="mt-auto">
+          <h3 class="text-sm font-semibold text-gray-400 mb-3">
+            Recently Played
+          </h3>
+          <div id="recentlyPlayed" class="space-y-2"></div>
+        </div>
+      </aside>
+
+      <!-- Enhanced Bottom Nav (Mobile) -->
+      <nav
+        class="fixed bottom-20 left-0 right-0 bg-spotify-gray text-white flex justify-around items-center py-4 md:hidden z-50 border-t border-spotify-light"
+      >
+        <button
+          onclick="showPage('home')"
+          class="mobile-nav-btn flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200"
+        >
+          <i class="fas fa-home text-lg"></i>
+          <span class="text-xs">Home</span>
+        </button>
+        <button
+          onclick="showPage('search')"
+          class="mobile-nav-btn flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200"
+        >
+          <i class="fas fa-search text-lg"></i>
+          <span class="text-xs">Search</span>
+        </button>
+        <button
+          onclick="showPage('library')"
+          class="mobile-nav-btn flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200"
+        >
+          <i class="fas fa-book text-lg"></i>
+          <span class="text-xs">Library</span>
+        </button>
+      </nav>
+
+      <!-- Enhanced Main Content -->
+      <main
+        class="flex-1 overflow-y-auto bg-gradient-to-b from-spotify-gray to-spotify-dark"
+      >
+        <!-- Home Page -->
+        <section id="homePage" class="p-6 pb-32">
+          <div class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">Good evening</h1>
+            <p class="text-gray-400">Discover your next favorite song</p>
+          </div>
+
+          <!-- Continue Playing -->
+          <div id="continuePlayingSection" class="mb-8 hidden">
+            <h2 class="text-xl font-bold mb-4">Continue playing</h2>
+            <div
+              id="continuePlayingCard"
+              class="bg-gradient-to-r from-spotify-green to-green-600 rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+            >
+              <!-- Content will be populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Quick Access -->
+          <div class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Quick picks</h2>
+            <div
+              id="quickPicks"
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+            ></div>
+          </div>
+
+          <!-- Recently Played -->
+          <div class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Recently played</h2>
+            <div
+              id="recentlyPlayedGrid"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+            ></div>
+          </div>
+
+          <!-- Made for You -->
+          <div class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Made for you</h2>
+            <div
+              id="madeForYou"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+            ></div>
+          </div>
+
+          <!-- All Songs -->
+          <div>
+            <h2 class="text-xl font-bold mb-4">All Songs</h2>
+            <div
+              id="allSongs"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+            ></div>
+          </div>
+        </section>
+
+        <!-- Search Page -->
+        <section id="searchPage" class="hidden p-6 pb-32">
+          <div class="mb-6">
+            <h1 class="text-3xl font-bold mb-4">Search</h1>
+            <div class="relative">
+              <i
+                class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+              ></i>
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="What do you want to listen to?"
+                class="w-full pl-12 pr-4 py-3 rounded-full bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-spotify-green"
+              />
+            </div>
+          </div>
+
+          <!-- Search Categories -->
+          <div id="searchCategories" class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Browse all</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div
+                class="bg-gradient-to-br from-purple-500 to-purple-700 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+              >
+                <h3 class="font-bold">Pop</h3>
+              </div>
+              <div
+                class="bg-gradient-to-br from-green-500 to-green-700 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+              >
+                <h3 class="font-bold">Hip-Hop</h3>
+              </div>
+              <div
+                class="bg-gradient-to-br from-blue-500 to-blue-700 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+              >
+                <h3 class="font-bold">Rock</h3>
+              </div>
+              <div
+                class="bg-gradient-to-br from-red-500 to-red-700 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+              >
+                <h3 class="font-bold">Bollywood</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search Results -->
+          <div id="searchResultsContainer" class="hidden">
+            <h2 class="text-xl font-bold mb-4">Search Results</h2>
+            <div
+              id="searchResults"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+            ></div>
+          </div>
+        </section>
+
+        <!-- Library Page -->
+        <section id="libraryPage" class="hidden p-6 pb-32">
+          <div class="mb-6">
+            <h1 class="text-3xl font-bold mb-4">Your Library</h1>
+            <div class="flex gap-2 mb-4">
+              <button
+                class="bg-spotify-green text-black px-4 py-2 rounded-full font-medium hover:scale-105 transition-transform"
+              >
+                Recently Added
+              </button>
+              <button
+                class="bg-spotify-light px-4 py-2 rounded-full font-medium hover:bg-gray-600 transition-colors"
+              >
+                Artists
+              </button>
+              <button
+                class="bg-spotify-light px-4 py-2 rounded-full font-medium hover:bg-gray-600 transition-colors"
+              >
+                Albums
+              </button>
+            </div>
+          </div>
+
+          <!-- Create Playlist -->
+          <div class="mb-8 p-4 bg-spotify-light rounded-lg">
+            <h3 class="font-bold mb-2">Create your first playlist</h3>
+            <p class="text-gray-400 text-sm mb-4">It's easy, we'll help you</p>
+            <input
+              id="newPlaylistInput"
+              type="text"
+              placeholder="Playlist name"
+              class="w-full p-3 bg-spotify-gray rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-spotify-green"
+            />
+            <button
+              onclick="createPlaylist()"
+              class="bg-spotify-green text-black px-6 py-2 rounded-full font-medium hover:scale-105 transition-transform"
+            >
+              Create playlist
+            </button>
+          </div>
+
+          <!-- Liked Songs -->
+          <div class="mb-8">
+            <div
+              class="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg mb-4 cursor-pointer hover:scale-105 transition-transform"
+              onclick="showLikedSongs()"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-purple-400 to-white rounded flex items-center justify-center"
+              >
+                <i class="fas fa-heart text-purple-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold">Liked Songs</h3>
+                <p class="text-sm text-gray-300" id="likedCount">0 songs</p>
+              </div>
+            </div>
+            <div
+              id="likedSongs"
+              class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+            ></div>
+          </div>
+
+          <!-- Playlists -->
+          <div>
+            <h2 class="text-xl font-bold mb-4">Made by you</h2>
+            <div id="playlistList" class="space-y-4"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Enhanced Footer Player -->
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-spotify-gray border-t border-spotify-light text-white z-40"
+    >
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-600 h-1">
+        <div
+          id="progressBar"
+          class="bg-spotify-green h-1 transition-all duration-100"
+          style="width: 0%"
+        ></div>
+      </div>
+
+      <div class="flex items-center justify-between px-4 py-3">
+        <!-- Song Info -->
+        <div class="flex items-center gap-3 flex-1 min-w-0">
+          <img
+            id="playerCover"
+            src="assets/logo.png"
+            class="w-14 h-14 rounded-lg shadow-lg"
+            alt="cover"
+          />
+          <div class="min-w-0 flex-1">
+            <div id="playerTitle" class="font-semibold text-sm truncate">
+              Select a song
+            </div>
+            <div id="playerArtist" class="text-xs text-gray-400 truncate">
+              Choose your music
+            </div>
+          </div>
+          <button
+            id="likeCurrentBtn"
+            onclick="toggleCurrentLike()"
+            class="text-gray-400 hover:text-white transition-colors"
+          >
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+
+        <!-- Player Controls -->
+        <div class="flex flex-col items-center gap-2 flex-1 max-w-md">
+          <div class="flex items-center gap-4">
+            <button
+              onclick="toggleShuffle()"
+              id="shuffleBtn"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <i class="fas fa-random"></i>
+            </button>
+            <button
+              onclick="prevSong()"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button
+              onclick="togglePlay()"
+              id="playBtn"
+              class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:scale-105 transition-transform"
+            >
+              <i class="fas fa-play"></i>
+            </button>
+            <button
+              onclick="nextSong()"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <i class="fas fa-step-forward"></i>
+            </button>
+            <button
+              onclick="toggleRepeat()"
+              id="repeatBtn"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+
+          <!-- Time and Seek -->
+          <div class="flex items-center gap-2 w-full text-xs text-gray-400">
+            <span id="currentTime">0:00</span>
+            <input
+              type="range"
+              id="seekBar"
+              value="0"
+              class="flex-1 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer slider"
+            />
+            <span id="totalTime">0:00</span>
+          </div>
+        </div>
+
+        <!-- Volume and Options -->
+        <div class="flex items-center gap-3 flex-1 justify-end">
+          <button
+            onclick="toggleQueue()"
+            class="text-gray-400 hover:text-white transition-colors hidden md:block"
+          >
+            <i class="fas fa-list"></i>
+          </button>
+          <button
+            onclick="toggleMute()"
+            id="muteBtn"
+            class="text-gray-400 hover:text-white transition-colors"
+          >
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <input
+            type="range"
+            id="volumeSlider"
+            value="100"
+            max="100"
+            class="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer slider hidden md:block"
+          />
+          <button
+            onclick="toggleFullscreen()"
+            class="text-gray-400 hover:text-white transition-colors hidden md:block"
+          >
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Playlist Modal -->
+    <div
+      id="playlistModal"
+      class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4"
+    >
+      <div class="bg-spotify-gray rounded-xl w-full max-w-md animate-slide-up">
+        <div class="p-6 border-b border-spotify-light">
+          <h3 class="text-xl font-bold">Add to playlist</h3>
+        </div>
+        <div class="p-6 max-h-96 overflow-y-auto">
+          <div id="playlistOptions" class="space-y-2"></div>
+        </div>
+        <div class="p-6 border-t border-spotify-light">
+          <button
+            onclick="closePlaylistModal()"
+            class="w-full py-3 text-gray-400 hover:text-white transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Queue Modal -->
+    <div
+      id="queueModal"
+      class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4"
+    >
+      <div class="bg-spotify-gray rounded-xl w-full max-w-2xl animate-slide-up">
+        <div class="p-6 border-b border-spotify-light">
+          <h3 class="text-xl font-bold">Queue</h3>
+        </div>
+        <div class="p-6 max-h-96 overflow-y-auto">
+          <div id="queueList" class="space-y-2"></div>
+        </div>
+        <div class="p-6 border-t border-spotify-light">
+          <button
+            onclick="toggleQueue()"
+            class="w-full py-3 text-gray-400 hover:text-white transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div
+      id="contextMenu"
+      class="fixed bg-spotify-light rounded-lg shadow-xl z-60 hidden"
+    >
+      <div class="py-2">
+        <button
+          onclick="addToQueue(contextSongIndex)"
+          class="w-full px-4 py-2 text-left hover:bg-spotify-gray transition-colors"
+        >
+          <i class="fas fa-plus mr-2"></i>Add to queue
+        </button>
+        <button
+          onclick="openPlaylistModal(contextSongIndex)"
+          class="w-full px-4 py-2 text-left hover:bg-spotify-gray transition-colors"
+        >
+          <i class="fas fa-list mr-2"></i>Add to playlist
+        </button>
+        <button
+          onclick="toggleLike(contextSongIndex)"
+          class="w-full px-4 py-2 text-left hover:bg-spotify-gray transition-colors"
+        >
+          <i class="fas fa-heart mr-2"></i>Like song
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div
+      id="settingsModal"
+      class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4"
+    >
+      <div class="bg-spotify-gray rounded-xl w-full max-w-md animate-slide-up">
+        <div class="p-6 border-b border-spotify-light">
+          <h3 class="text-xl font-bold">Settings</h3>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="space-y-3">
+            <h4 class="font-semibold text-gray-300">Playback</h4>
+            <div class="p-3 bg-spotify-light rounded-lg">
+              <div class="flex items-center gap-3 mb-2">
+                <i class="fas fa-mobile-alt text-spotify-green"></i>
+                <span class="font-medium">Lock Screen Controls</span>
+              </div>
+              <p class="text-sm text-gray-400">
+                Control playback from your device's lock screen, notification
+                panel, or media widgets when music is playing.
+              </p>
+            </div>
+            <button
+              onclick="clearLastPlayedSong(); toggleSettings();"
+              class="w-full p-3 bg-spotify-light rounded-lg hover:bg-gray-600 transition-colors text-left"
+            >
+              <i class="fas fa-trash mr-3 text-red-400"></i>
+              <span>Clear last played song</span>
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-semibold text-gray-300">Storage</h4>
+            <button
+              onclick="clearAllData()"
+              class="w-full p-3 bg-red-600 hover:bg-red-700 rounded-lg transition-colors text-left"
+            >
+              <i class="fas fa-exclamation-triangle mr-3"></i>
+              <span>Clear all app data</span>
+            </button>
+          </div>
+        </div>
+        <div class="p-6 border-t border-spotify-light">
+          <button
+            onclick="toggleSettings()"
+            class="w-full py-3 text-gray-400 hover:text-white transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <!-- Custom Styles -->
+    <style>
+      .slider::-webkit-slider-thumb {
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #1db954;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .slider:hover::-webkit-slider-thumb {
+        opacity: 1;
+      }
+
+      .nav-btn.active {
+        background-color: #282828;
+        color: #1db954;
+      }
+
+      .mobile-nav-btn.active {
+        color: #1db954;
+      }
+
+      .song-card {
+        transition: all 0.2s ease;
+      }
+
+      .song-card:hover {
+        background-color: #282828;
+        transform: translateY(-2px);
+      }
+    </style>
+  </body>
 </html>
