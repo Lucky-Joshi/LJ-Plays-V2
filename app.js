@@ -29,7 +29,10 @@ const songFiles = [
   "song28.mp3",
   "song29.mp3",
   "song30.mp3",
-  "song31.mp3"
+  "song31.mp3",
+  "song32.mp3",
+  "song33.mp3",
+  "song34.mp3",
 ];
 
 const songTitles = [
@@ -62,7 +65,10 @@ const songTitles = [
   "Ye Tune Kya Kiya - Love Version",
   "Te Amo",
   "Tu jaane na",
-  "Pal Pal"
+  "Pal Pal",
+  "Tose naina",
+  "Raat Bhar",
+  "Zaroor"
 
 ];
 
@@ -97,7 +103,10 @@ const songImages = [
   "image28.jpg",
   "image29.jpg",
   "image30.jpg",
-  "image31.jpg"
+  "image31.jpg",
+  "image32.jpg",
+  "image33.jpg",
+  "image34.jpg"
 ];
 
 const artistNames = [
@@ -132,6 +141,10 @@ const artistNames = [
   "Ash King",                           // Te Amo
   "Arijit Singh",                     // Tu jaane na
   "Ali Somro",                       // Pal Pal
+  "Arijit Singh",                     // Tose naina
+  "Arjit Singh",                     // Raat Bhar
+  "Aparshakti",                        // Zaroor
+
 ];
 
 const songs = songFiles.map((src, i) => ({
