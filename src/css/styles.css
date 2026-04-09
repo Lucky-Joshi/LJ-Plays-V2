@@ -1,0 +1,67 @@
+:root {
+  --spotify-green: #1DB954;
+  --spotify-dark: #121212;
+  --spotify-gray: #181818;
+  --spotify-light: #282828;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--spotify-green);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.slider:hover::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+.nav-btn.active {
+  background-color: var(--spotify-light);
+  color: var(--spotify-green);
+}
+
+.mobile-nav-btn.active {
+  color: var(--spotify-green);
+}
+
+.song-card {
+  transition: all 0.2s ease;
+}
+
+.song-card:hover {
+  background-color: var(--spotify-light);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes bounceGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+.animate-bounce-gentle {
+  animation: bounceGentle 2s infinite;
+}
