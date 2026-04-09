@@ -115,7 +115,7 @@
 
         <div class="mt-4 pt-4 border-t border-spotify-light">
           <button
-            onclick="createPlaylist()"
+            onclick="showCreatePlaylistModal()"
             class="flex items-center gap-3 p-3 rounded-lg hover:bg-spotify-light transition-all duration-200 text-left w-full"
           >
             <i class="fas fa-plus text-lg"></i>
@@ -315,19 +315,13 @@
 
           <!-- Create Playlist -->
           <div class="mb-8 p-4 bg-spotify-light rounded-lg">
-            <h3 class="font-bold mb-2">Create your first playlist</h3>
+            <h3 class="font-bold mb-2">Create a new playlist</h3>
             <p class="text-gray-400 text-sm mb-4">It's easy, we'll help you</p>
-            <input
-              id="newPlaylistInput"
-              type="text"
-              placeholder="Playlist name"
-              class="w-full p-3 bg-spotify-gray rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-spotify-green"
-            />
             <button
-              onclick="createPlaylist()"
-              class="bg-spotify-green text-black px-6 py-2 rounded-full font-medium hover:scale-105 transition-transform"
+              onclick="showCreatePlaylistModal()"
+              class="bg-spotify-green text-black px-6 py-2 rounded-full font-medium hover:scale-105 transition-transform flex items-center gap-2"
             >
-              Create playlist
+              <i class="fas fa-plus"></i> Create playlist
             </button>
           </div>
 
@@ -354,9 +348,9 @@
           </div>
 
           <!-- Playlists -->
-          <div>
-            <h2 class="text-xl font-bold mb-4">Made by you</h2>
-            <div id="playlistList" class="space-y-4"></div>
+          <div class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Your Playlists</h2>
+            <div id="playlistList" class="space-y-2"></div>
           </div>
         </section>
       </main>
@@ -490,18 +484,51 @@
       class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4"
     >
       <div class="bg-spotify-gray rounded-xl w-full max-w-md animate-slide-up">
-        <div class="p-6 border-b border-spotify-light">
-          <h3 class="text-xl font-bold">Add to playlist</h3>
+        <div class="p-4 border-b border-spotify-light flex items-center justify-between">
+          <h3 class="text-lg font-bold">Add to playlist</h3>
+          <button onclick="closePlaylistModal()" class="p-2 hover:bg-spotify-light rounded-full">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
-        <div class="p-6 max-h-96 overflow-y-auto">
+        <div class="p-4 max-h-64 overflow-y-auto">
           <div id="playlistOptions" class="space-y-2"></div>
         </div>
-        <div class="p-6 border-t border-spotify-light">
+        <div class="p-4 border-t border-spotify-light">
           <button
             onclick="closePlaylistModal()"
-            class="w-full py-3 text-gray-400 hover:text-white transition-colors"
+            class="w-full py-2 text-gray-400 hover:text-white transition-colors"
           >
             Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div
+      id="createPlaylistModal"
+      class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4"
+    >
+      <div class="bg-spotify-gray rounded-xl w-full max-w-md animate-slide-up">
+        <div class="p-4 border-b border-spotify-light flex items-center justify-between">
+          <h3 class="text-lg font-bold">Create Playlist</h3>
+          <button onclick="closeCreatePlaylistModal()" class="p-2 hover:bg-spotify-light rounded-full">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="p-6 space-y-4">
+          <input
+            id="quickPlaylistInput"
+            type="text"
+            placeholder="Playlist name"
+            class="w-full p-3 bg-spotify-light rounded-lg focus:outline-none focus:ring-2 focus:ring-spotify-green text-white placeholder-gray-400"
+            onkeypress="if(event.key === 'Enter') quickCreatePlaylist()"
+          />
+          <button
+            onclick="quickCreatePlaylist()"
+            class="w-full py-3 bg-spotify-green text-black rounded-full font-bold hover:bg-green-400 transition-colors"
+          >
+            Create
           </button>
         </div>
       </div>
@@ -528,6 +555,22 @@
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- Playlist View Modal -->
+    <div
+      id="playlistViewModal"
+      class="fixed inset-0 bg-spotify-dark z-50 hidden overflow-y-auto"
+    >
+      <div class="sticky top-0 bg-spotify-dark z-10 p-4 border-b border-spotify-light">
+        <div class="flex items-center gap-4">
+          <button onclick="closePlaylistView()" class="p-2 hover:bg-spotify-light rounded-full transition-colors">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <span class="text-sm text-gray-400">Playlist</span>
+        </div>
+      </div>
+      <div id="playlistViewContent" class="p-6 pb-24"></div>
     </div>
 
     <!-- Context Menu -->
