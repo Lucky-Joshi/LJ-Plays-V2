@@ -33,6 +33,7 @@ const songFiles = [
   "song32.mp3",
   "song33.mp3",
   "song34.mp3",
+  "song35.mp3",
 ];
 
 const songTitles = [
@@ -69,7 +70,8 @@ const songTitles = [
   "Pal Pal",
   "Tose naina",
   "Raat Bhar",
-  "Zaroor"
+  "Zaroor",
+  "Tu Na Samjhe"
 ];
 
 const songImages = [
@@ -106,7 +108,8 @@ const songImages = [
   "image31.jpg",
   "image32.jpg",
   "image33.jpg",
-  "image34.jpg"
+  "image34.jpg",
+  "image35.jpg"
 ];
 
 const artistNames = [
@@ -142,7 +145,8 @@ const artistNames = [
   "Ali Somro",
   "Arijit Singh",
   "Arjit Singh",
-  "Aparshakti"
+  "Aparshakti",
+  "Raja"
 ];
 
 const songs = songFiles.map((src, i) => ({
