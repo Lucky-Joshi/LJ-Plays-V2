@@ -26,7 +26,7 @@ function setupEventListeners() {
 
   setupKeyboardShortcuts();
 
-  audio.addEventListener('pause', () => {
+  document.getElementById('audio')?.addEventListener('pause', () => {
     if (currentIndex !== null && audio.currentTime > 0) {
       saveLastPlayedSong(currentIndex);
     }
@@ -81,6 +81,7 @@ function setupKeyboardShortcuts() {
 }
 
 function initApp() {
+  initElements();
   initStorage();
   initPlayer();
   setupEventListeners();

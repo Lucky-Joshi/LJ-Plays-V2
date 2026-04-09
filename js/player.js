@@ -1,4 +1,3 @@
-let audio;
 let currentIndex = 0;
 let isPlaying = false;
 let isRepeat = false;
@@ -7,7 +6,7 @@ let isMuted = false;
 let currentPlaylistId = null;
 
 function initPlayer() {
-  audio = document.getElementById('audio');
+  initElements();
   setupPlayerEvents();
 }
 
