@@ -50,7 +50,8 @@ const songTitles = [
   "Punjabi Wedding",
   "Mitwa",
   "Yaad Piya Ki",
-  "Teri Aankhon Mein", "Jhol",
+  "Teri Aankhon Mein",
+  "Jhol",
   "Aashiq Tera",
   "O Rangrez",
   "Tum Mile",
@@ -189,18 +190,15 @@ function loadSong(index) {
   cover.src = song.cover;
   currentIndex = index;
 
-  // Save as last played song
   saveLastPlayedSong(index);
-
-  // Add to recently played
   addToRecentlyPlayed(song);
-
-  // Update like button
   updateLikeButton();
+  updateMediaSession(song);
 
   audio.play().then(() => {
     isPlaying = true;
     updatePlayButton();
+    updateMediaSessionPlaybackState();
   }).catch(e => console.log('Playback failed:', e));
 }
 
@@ -774,13 +772,6 @@ function updateLikedCount() {
   }
 }
 
-function renderAll() {
-  renderSongs("homePage");
-  renderSongs("searchResults");
-  renderLikedSongs();
-  renderPlaylists();
-}
-
 document.getElementById('searchInput')?.addEventListener('input', (e) => {
   const query = e.target.value.toLowerCase();
   renderSongs("searchResults", s => s.name.toLowerCase().includes(query));
@@ -1013,27 +1004,21 @@ function renderAll() {
 
 // Enhanced window load
 window.onload = () => {
-  // Set initial volume
   setVolume(50);
   volumeSlider.value = 50;
 
-  // Load last played song if available
   const hasLastSong = loadLastPlayedSong();
 
-  // If no last played song, show welcome message
   if (!hasLastSong) {
     setTimeout(() => {
       showNotification('Welcome back! Select a song to start listening.');
     }, 3000);
   }
 
-  // Render all content
   renderAll();
-
-  // Show home page by default
   showPage('home');
+  initializeMediaSession();
 
-  // Enhanced splash screen
   setTimeout(() => {
     const splash = document.getElementById('splash');
     splash.style.opacity = '0';
@@ -1044,7 +1029,6 @@ window.onload = () => {
     }, 1000);
   }, 2500);
 
-  // Add some welcome animations
   setTimeout(() => {
     document.querySelectorAll('.song-card').forEach((card, index) => {
       card.style.animationDelay = `${index * 0.1}s`;
