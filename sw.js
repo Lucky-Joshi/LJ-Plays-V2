@@ -1,10 +1,11 @@
-const CACHE_NAME = 'lj-plays-v2-v1';
+const CACHE_NAME = 'lj-plays-v2-v2';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/app.js',
     '/sw.js',
     '/assets/logo.png',
+    '/assets/audio/',
+    '/assets/covers/',
     'https://cdn.tailwindcss.com',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];

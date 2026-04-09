@@ -152,6 +152,6 @@ const artistNames = [
 const songs = songFiles.map((src, i) => ({
   name: songTitles[i],
   artist: artistNames[i],
-  cover: `assets/${songImages[i]}`,
-  src: `assets/${src}`
+  cover: `assets/covers/${songImages[i]}`,
+  src: `assets/audio/${src}`
 }));
