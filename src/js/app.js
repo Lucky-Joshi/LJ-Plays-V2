@@ -1,6 +1,6 @@
 import { player } from './player.js';
 import { storage } from './storage.js';
-import { CONFIG } from '../config/index.js';
+import { CONFIG } from '../../config/index.js';
 import { showNotification, showPage, renderAll, playlistUI, initMediaSession } from './ui.js';
 
 function setupEventListeners() {
