@@ -609,7 +609,8 @@ window.contextMenu = contextMenu;
 window.playlistUI = playlistUI;
 window.likes = likes;
 window.queue = queue;
-window.updateLikeButton = likes.updateButton.bind(likes);
+const updateLikeButton = () => likes.updateButton();
+window.updateLikeButton = updateLikeButton;
 window.updateMediaSession = updateMediaSession;
 window.updateMediaSessionPlaybackState = updateMediaSessionPlaybackState;
 
