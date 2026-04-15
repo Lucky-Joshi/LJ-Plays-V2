@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lj-plays-v2-v3';
+const CACHE_NAME = 'lj-plays-v2-v4';
 const urlsToCache = [
     '/',
     '/index.html',
