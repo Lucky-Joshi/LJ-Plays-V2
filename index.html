@@ -6,48 +6,12 @@
     <meta name="theme-color" content="#1DB954" />
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <title>LJ Plays V2 - Your Music, Your Way</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              spotify: {
-                green: "#1DB954",
-                dark: "#121212",
-                gray: "#181818",
-                light: "#282828",
-              },
-            },
-            animation: {
-              "fade-in": "fadeIn 0.5s ease-in-out",
-              "slide-up": "slideUp 0.3s ease-out",
-              "pulse-slow": "pulse 3s infinite",
-              "bounce-gentle": "bounceGentle 2s infinite",
-            },
-            keyframes: {
-              fadeIn: {
-                "0%": { opacity: "0", transform: "translateY(10px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
-              },
-              slideUp: {
-                "0%": { transform: "translateY(100%)" },
-                "100%": { transform: "translateY(0)" },
-              },
-              bounceGentle: {
-                "0%, 100%": { transform: "translateY(0)" },
-                "50%": { transform: "translateY(-5px)" },
-              },
-            },
-          },
-        },
-      };
-    </script>
     <link rel="stylesheet" href="src/css/styles.css" />
+    <script src="src/js/data.js"></script>
     <script type="module" src="src/js/app.js"></script>
   </head>
   <body class="font-sans overflow-hidden bg-spotify-dark">
@@ -664,40 +628,6 @@
       <span>Lock screen controls available</span>
     </div>
 
-    <!-- Custom Styles -->
-    <style>
-      .slider::-webkit-slider-thumb {
-        appearance: none;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #1db954;
-        cursor: pointer;
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
 
-      .slider:hover::-webkit-slider-thumb {
-        opacity: 1;
-      }
-
-      .nav-btn.active {
-        background-color: #282828;
-        color: #1db954;
-      }
-
-      .mobile-nav-btn.active {
-        color: #1db954;
-      }
-
-      .song-card {
-        transition: all 0.2s ease;
-      }
-
-      .song-card:hover {
-        background-color: #282828;
-        transform: translateY(-2px);
-      }
-    </style>
   </body>
 </html>

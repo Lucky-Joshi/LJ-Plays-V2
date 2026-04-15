@@ -1,7 +1,7 @@
 import { player } from './player.js';
 import { storage } from './storage.js';
 import { CONFIG } from '../config.js';
-import { showNotification, showPage, renderAll, playlistUI, initMediaSession } from './ui.js';
+import { showNotification, showPage, renderAll, playlistUI, likes, queue, contextMenu, initMediaSession } from './ui.js';
 
 function setupEventListeners() {
   document.getElementById('seekBar').addEventListener('input', (e) => player.seek(e.target.value));
@@ -97,6 +97,25 @@ function initApp() {
     });
   }, CONFIG.UI.SPLASH_DURATION + 1000);
 }
+
+// Expose player functions to window for HTML inline onclick handlers
+window.togglePlay = () => player.togglePlay();
+window.nextSong = () => player.next();
+window.prevSong = () => player.prev();
+window.toggleShuffle = () => player.toggleShuffle();
+window.toggleRepeat = () => player.toggleRepeat();
+window.toggleMute = () => player.toggleMute();
+window.toggleQueue = () => queue.toggle();
+window.toggleCurrentLike = () => { if (player.currentIndex !== null) likes.toggle(player.currentIndex); };
+window.showCreatePlaylistModal = () => playlistUI.openCreateModal();
+window.quickCreatePlaylist = () => { const input = document.getElementById('quickPlaylistInput'); playlistUI.createPlaylist(input?.value?.trim()); };
+window.closePlaylistModal = () => playlistUI.closeModal();
+window.closeCreatePlaylistModal = () => playlistUI.closeCreateModal();
+window.closePlaylistView = () => playlistUI.closeView();
+window.addToQueue = (idx) => queue.add(idx);
+window.openPlaylistModal = (idx) => playlistUI.openModal(idx);
+window.toggleLike = (idx) => likes.toggle(idx);
+window.clearLastPlayedSong = () => player.clearLastPlayed();
 
 // Service Worker
 if ('serviceWorker' in navigator) {

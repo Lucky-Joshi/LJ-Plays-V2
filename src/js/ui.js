@@ -614,4 +614,4 @@ window.updateLikeButton = updateLikeButton;
 window.updateMediaSession = updateMediaSession;
 window.updateMediaSessionPlaybackState = updateMediaSessionPlaybackState;
 
-export { showNotification, showPage, renderAll, playlistUI, likes, queue, contextMenu, updateLikeButton };
+export { showNotification, showPage, renderAll, playlistUI, likes, queue, contextMenu, updateLikeButton, initMediaSession, updateMediaSession, updateMediaSessionPlaybackState };

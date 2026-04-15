@@ -1,4 +1,4 @@
-const CONFIG = {
+export const CONFIG = {
   APP_NAME: 'LJ Plays V2',
   APP_VERSION: '2.0.0',
   STORAGE_KEYS: {
