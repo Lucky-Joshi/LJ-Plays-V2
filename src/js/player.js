@@ -1,5 +1,5 @@
 import { storage } from './storage.js';
-import { CONFIG } from '../config/index.js';
+import { CONFIG } from '../config.js';
 
 class Player {
   constructor() {
